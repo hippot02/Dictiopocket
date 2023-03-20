@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">DictioPocket</string>
+    <string name="app_name">FlagQuizz</string>
+    <string name="confirm">Valider</string>
+    <string name="again">Rejouer</string>
+    <string name="drapeau">Drapeau</string>
 </resources>
