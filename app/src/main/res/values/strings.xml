@@ -3,4 +3,6 @@
     <string name="confirm">Valider</string>
     <string name="again">Rejouer</string>
     <string name="drapeau">Drapeau</string>
+    <string name="menutxt1">Quizz</string>
+    <string name="menutxt2">FlagGuesser</string>
 </resources>

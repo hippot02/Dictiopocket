@@ -5,12 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.dictiopocket.R;
 
@@ -28,9 +32,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
+
+        ImageView menu_icon = findViewById(R.id.menu_icon);
+
+        menu_icon.setOnClickListener(view -> {
+
+        });
+
         RequestTask rq = new RequestTask();
         rq.execute();
     }
+
+
+
 
     public void onClick(View v) {
         if(v.getId() == R.id.confirm) {
@@ -149,5 +164,6 @@ public class MainActivity extends AppCompatActivity {
             bmImage.setImageBitmap(result);
         }
     }
+
 
 }
