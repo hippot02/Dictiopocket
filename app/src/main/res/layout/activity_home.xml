@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/nomPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:textSize="50dp"
+            android:text="Nom pays"/>
+
+        <ImageView
+            android:id="@+id/drapeauPays"
+            android:layout_width="960px"
+            android:layout_height="600px"
+            android:layout_below="@+id/nomPays"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/area"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/drapeauPays"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:text="Surface du pays :"/>
+
+        <TextView
+            android:id="@+id/areaPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/area"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:text="..........."/>
+
+        <TextView
+            android:id="@+id/population"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/areaPays"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:text="Population :"/>
+
+        <TextView
+            android:id="@+id/populationPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/population"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:text="..........."/>
+
+        <TextView
+            android:id="@+id/capital"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/populationPays"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:text="Capital du pays :"/>
+
+        <TextView
+            android:id="@+id/capitalPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capital"
+            android:layout_centerHorizontal="true"
+            android:textSize="30dp"
+            android:text="..........."/>
+
+        <Button
+            android:id="@+id/jeuDrapeau"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capitalPays"
+            android:layout_centerHorizontal="true"
+            android:text="Jeu drapeau"
+            android:onClick="onClick"/>
+
+    </RelativeLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

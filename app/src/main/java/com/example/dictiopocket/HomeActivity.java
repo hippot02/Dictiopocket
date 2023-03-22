@@ -4,96 +4,44 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.example.dictiopocket.R;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class MainActivity extends AppCompatActivity {
-    private String pays;
-    private MainActivity activity;
-    @Override
+public class HomeActivity extends AppCompatActivity {
+
+    private String name, area, population, capital;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        this.activity = this;
-        getSupportActionBar().hide();
-
-        ImageView menu_icon = findViewById(R.id.menu_icon);
-
-        menu_icon.setOnClickListener(view -> {
-
-        });
-
+        setContentView(R.layout.activity_home);
         RequestTask rq = new RequestTask();
         rq.execute();
     }
 
-
-
-
     public void onClick(View v) {
-        if(v.getId() == R.id.confirm) {
-            EditText edt = (EditText) findViewById(R.id.editFlag);
-            String nomPays = edt.getText().toString();
-            TextView bravo = findViewById(R.id.txt);
-            Intent i = new Intent(this, HomeActivity.class);
-            if (nomPays.equals(pays)) {
-                CustomPopup popup = new CustomPopup(activity);
-                popup.setTitle("Félicitation");
-                popup.setSubtitle("Vous avez trouvé la bonne réponse. Voulez vous rejouer ?");
-                popup.build();
-                popup.getYesButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        popup.dismiss();
-                        reload();
-                    }
-                });
-                popup.getNoButton().setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        popup.dismiss();
-                        startActivity(i);
-                    }
-                });
-            } else {
-                bravo.setText("Mauvaise réponse");
-            }
-        }
-        if(v.getId() == R.id.again) {
-            RequestTask rq = new RequestTask();
-            rq.execute();
+        if(v.getId() == R.id.jeuDrapeau) {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+
         }
     }
-
-    public void reload() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-
-
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -142,8 +90,12 @@ public class MainActivity extends AppCompatActivity {
             JSONObject jsoPays = jsonArray.getJSONObject(m);
             JSONObject jsoTranslations = jsoPays.getJSONObject("translations");
             JSONObject jsoFra = jsoTranslations.getJSONObject("fra");
-            String jsoCommon = jsoFra.getString("common");
-            pays = jsoCommon;
+            name = jsoFra.getString("common");
+            area = jsoPays.getString("area");
+            population = jsoPays.getString("population");
+            JSONArray data = jsoPays.getJSONArray("capital");
+            capital = data.getString(0);
+            //capital = jsoPays.getString("capital");
             JSONObject jsoFlag = jsoPays.getJSONObject("flags");
             String flagURL = jsoFlag.getString("png");
             response = flagURL;
@@ -153,14 +105,22 @@ public class MainActivity extends AppCompatActivity {
             JSONArray jsa;
             try {
                 jsa = new JSONArray(result);
-                new DownloadImageTask((ImageView) findViewById(R.id.imageView)).execute(decodeJSA(jsa));
+                new DownloadImageTask((ImageView) findViewById(R.id.drapeauPays)).execute(decodeJSA(jsa));
+                TextView nomPays = findViewById(R.id.nomPays);
+                TextView areaPays = findViewById(R.id.areaPays);
+                TextView populationPays = findViewById(R.id.populationPays);
+                TextView capitalPays = findViewById(R.id.capitalPays);
+                nomPays.setText(name);
+                areaPays.setText(area + " km²");
+                populationPays.setText(population);
+                capitalPays.setText(capital);
             } catch (Exception e) {
 
             }
         }
     }
 
-    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+    public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {
@@ -182,8 +142,8 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
+
         }
     }
-
 
 }

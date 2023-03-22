@@ -5,4 +5,6 @@
     <string name="drapeau">Drapeau</string>
     <string name="menutxt1">Quizz</string>
     <string name="menutxt2">FlagGuesser</string>
+    <string name="yesButton">OUI</string>
+    <string name="noButton">NON</string>
 </resources>
