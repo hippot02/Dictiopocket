@@ -12,8 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textSize="50dp"
-            android:text="Nom pays"/>
+            android:textSize="50dp"/>
 
         <ImageView
             android:id="@+id/drapeauPays"
@@ -28,8 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/drapeauPays"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="Surface du pays :"/>
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/areaPays"
@@ -37,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/area"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="..........."/>
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/population"
@@ -46,8 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/areaPays"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="Population :"/>
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/populationPays"
@@ -55,8 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/population"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="..........."/>
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/capital"
@@ -64,8 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/populationPays"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="Capital du pays :"/>
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/capitalPays"
@@ -73,14 +67,22 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/capital"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="..........."/>
+            android:textSize="30dp"/>
+
+        <Button
+            android:id="@+id/nouveauPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capitalPays"
+            android:layout_centerHorizontal="true"
+            android:text="Nouveau pays"
+            android:onClick="onClick"/>
 
         <Button
             android:id="@+id/jeuDrapeau"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/capitalPays"
+            android:layout_below="@id/nouveauPays"
             android:layout_centerHorizontal="true"
             android:text="Jeu drapeau"
             android:onClick="onClick"/>

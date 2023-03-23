@@ -8,10 +8,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/streak"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/imageView"
+            android:layout_marginBottom="100dp"
+            />
+
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="960px"
             android:layout_height="600px"
-            android:id="@+id/imageView"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
 
@@ -25,30 +34,41 @@
             />
 
         <TextView
+            android:id="@+id/reponse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:id="@+id/txt"
+            android:textSize="30dp"
             android:layout_below="@+id/editFlag"
             />
 
         <Button
+            android:id="@+id/show"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/reponse"
+            android:layout_centerHorizontal="true"
+            android:text="Afficher réponse"
+            android:backgroundTint="@color/blueperso"
+            android:onClick="onClick"/>
+
+        <Button
+            android:id="@+id/confirm"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="250px"
-            android:id="@+id/confirm"
             android:text="@string/confirm"
             android:backgroundTint="@color/blueperso"
             android:onClick="onClick"/>
 
         <Button
+            android:id="@+id/again"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:layout_marginRight="250px"
-            android:id="@+id/again"
             android:backgroundTint="@color/blueperso"
             android:text="@string/again"
             android:onClick="onClick"/>

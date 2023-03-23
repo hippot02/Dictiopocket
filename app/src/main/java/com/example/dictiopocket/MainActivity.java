@@ -28,6 +28,7 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private String pays;
+    private int streak;
     private MainActivity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,19 +42,18 @@ public class MainActivity extends AppCompatActivity {
         menu_icon.setOnClickListener(view -> {
 
         });
-
+        TextView streakT = findViewById(R.id.streak);
+        streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
         RequestTask rq = new RequestTask();
         rq.execute();
     }
 
 
-
-
     public void onClick(View v) {
+        TextView reponse = findViewById(R.id.reponse);
         if(v.getId() == R.id.confirm) {
             EditText edt = (EditText) findViewById(R.id.editFlag);
             String nomPays = edt.getText().toString();
-            TextView bravo = findViewById(R.id.txt);
             Intent i = new Intent(this, HomeActivity.class);
             if (nomPays.equals(pays)) {
                 CustomPopup popup = new CustomPopup(activity);
@@ -75,12 +75,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                bravo.setText("Mauvaise réponse");
+                Toast.makeText(getApplicationContext(), "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
             }
         }
+
         if(v.getId() == R.id.again) {
+            reponse.setText("");
+            streak = 0;
             RequestTask rq = new RequestTask();
             rq.execute();
+        }
+
+        if (v.getId() == R.id.show) {
+            reponse.setText(pays);
         }
     }
 
