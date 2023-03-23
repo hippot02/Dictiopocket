@@ -31,8 +31,13 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        getSupportActionBar().hide();
+        gestionImageView(); // Permet de gérer les images view dans une autre classe
+
         RequestTask rq = new RequestTask();
         rq.execute();
+
+
     }
 
     public void onClick(View v) {
@@ -145,5 +150,17 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
+    private void gestionImageView(){
+        ImageView menu_icon = findViewById(R.id.menu_icon);
 
+        menu_icon.setOnClickListener(view -> {
+            setContentView(R.layout.menu_toolbar);
+            ImageView btnHome = findViewById(R.id.btnHome);
+            Intent i = new Intent(this, HomeActivity.class);
+            btnHome.setOnClickListener(view1 ->{
+                startActivity(i);
+            });
+
+        });
+    }
 }

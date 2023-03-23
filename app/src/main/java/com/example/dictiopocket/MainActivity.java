@@ -36,11 +36,8 @@ public class MainActivity extends AppCompatActivity {
         this.activity = this;
         getSupportActionBar().hide();
 
-        ImageView menu_icon = findViewById(R.id.menu_icon);
+        gestionImageView(); // Permet de gérer les images view dans une autre classe
 
-        menu_icon.setOnClickListener(view -> {
-
-        });
 
         RequestTask rq = new RequestTask();
         rq.execute();
@@ -82,6 +79,7 @@ public class MainActivity extends AppCompatActivity {
             RequestTask rq = new RequestTask();
             rq.execute();
         }
+
     }
 
     public void reload() {
@@ -184,6 +182,40 @@ public class MainActivity extends AppCompatActivity {
             bmImage.setImageBitmap(result);
         }
     }
+
+    private void gestionImageView(){
+        ImageView menu_icon = findViewById(R.id.menu_icon);
+
+        menu_icon.setOnClickListener(view -> {
+            MenuToolbar tb = new MenuToolbar(activity);
+            ImageView btnHome = findViewById(R.id.btnHome);
+            Intent i = new Intent(this, HomeActivity.class);
+            btnHome.setOnClickListener(view1 ->{
+                startActivity(i);
+            });
+              tb.getBtnMenu1().setOnClickListener(new View.OnClickListener() {
+                  @Override
+                  public void onClick(View view) {
+                      Intent i = new Intent(MainActivity.this, HomeActivity.class);
+                      startActivity(i);
+
+                  }
+
+              });
+            tb.getBtnMenu2().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(i);
+
+                }
+            });
+        });
+
+    }
+
+
+
 
 
 }
