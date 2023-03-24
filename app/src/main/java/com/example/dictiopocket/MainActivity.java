@@ -29,6 +29,7 @@ import java.net.URL;
 public class MainActivity extends AppCompatActivity {
     private String pays;
     private int streak;
+    private TextView streakT;
     private MainActivity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         menu_icon.setOnClickListener(view -> {
 
         });
-        TextView streakT = findViewById(R.id.streak);
+        streakT = findViewById(R.id.streak);
         streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
         RequestTask rq = new RequestTask();
         rq.execute();
@@ -64,7 +65,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         popup.dismiss();
-                        reload();
+                        ImageView imageView = findViewById(R.id.imageView);
+                        imageView.setImageBitmap(null);
+                        RequestTask rq = new RequestTask();
+                        rq.execute();
+                        streak += 1;
+                        streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+                        reponse.setText("");
+                        EditText edt = findViewById(R.id.editFlag);
+                        edt.setText(null);
                     }
                 });
                 popup.getNoButton().setOnClickListener(new View.OnClickListener() {
@@ -81,7 +90,11 @@ public class MainActivity extends AppCompatActivity {
 
         if(v.getId() == R.id.again) {
             reponse.setText("");
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageBitmap(null);
             streak = 0;
+            streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+
             RequestTask rq = new RequestTask();
             rq.execute();
         }
