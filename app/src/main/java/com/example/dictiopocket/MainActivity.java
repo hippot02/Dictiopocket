@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
         this.activity = this;
         getSupportActionBar().hide();
 
-        gestionImageView(); // Permet de gérer les images view dans une autre classe
+        gestionToolbar(); // Permet de gérer les images view dans une autre classe
 
 
         RequestTask rq = new RequestTask();
@@ -78,6 +79,15 @@ public class MainActivity extends AppCompatActivity {
         if(v.getId() == R.id.again) {
             RequestTask rq = new RequestTask();
             rq.execute();
+        }
+        if(v.getId() == R.id.tbQuizzButton){
+            //Intent intent = new Intent(this,QuizzActivity.class)
+            //startActivity(intent)
+        }
+
+        if(v.getId() == R.id.tbDevinPaysButton){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
         }
 
     }
@@ -183,35 +193,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void gestionImageView(){
-        ImageView menu_icon = findViewById(R.id.menu_icon);
-
-        menu_icon.setOnClickListener(view -> {
-            MenuToolbar tb = new MenuToolbar(activity);
-            ImageView btnHome = findViewById(R.id.btnHome);
+    private void gestionToolbar() {
+        ImageView home_icon = findViewById(R.id.home_icon);
+        Button tbDevinPaysButton = findViewById(R.id.tbDevinPaysButton);
+        Button tbQuizzButton = findViewById(R.id.tbQuizzButton);
+        home_icon.setOnClickListener(view -> {
             Intent i = new Intent(this, HomeActivity.class);
-            btnHome.setOnClickListener(view1 ->{
-                startActivity(i);
-            });
-              tb.getBtnMenu1().setOnClickListener(new View.OnClickListener() {
-                  @Override
-                  public void onClick(View view) {
-                      Intent i = new Intent(MainActivity.this, HomeActivity.class);
-                      startActivity(i);
-
-                  }
-
-              });
-            tb.getBtnMenu2().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent i = new Intent(MainActivity.this, MainActivity.class);
-                    startActivity(i);
-
-                }
-            });
+            startActivity(i);
         });
-
     }
 
 

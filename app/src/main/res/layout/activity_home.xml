@@ -78,14 +78,7 @@
             android:textSize="30dp"
             android:text="..........."/>
 
-        <Button
-            android:id="@+id/jeuDrapeau"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/capitalPays"
-            android:layout_centerHorizontal="true"
-            android:text="Jeu drapeau"
-            android:onClick="onClick"/>
+
 
     </RelativeLayout>
 
