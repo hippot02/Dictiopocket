@@ -29,6 +29,8 @@ import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     private String pays;
+    private int streak;
+    private TextView streakT;
     private MainActivity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         gestionToolbar(); // Permet de gérer les images view dans une autre classe
 
-
+        streakT = findViewById(R.id.streak);
+        streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
         RequestTask rq = new RequestTask();
         rq.execute();
     }
@@ -48,10 +51,10 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void onClick(View v) {
+        TextView reponse = findViewById(R.id.reponse);
         if(v.getId() == R.id.confirm) {
             EditText edt = (EditText) findViewById(R.id.editFlag);
             String nomPays = edt.getText().toString();
-            TextView bravo = findViewById(R.id.txt);
             Intent i = new Intent(this, HomeActivity.class);
             if (nomPays.equals(pays)) {
                 CustomPopup popup = new CustomPopup(activity);
@@ -62,7 +65,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View view) {
                         popup.dismiss();
-                        reload();
+                        ImageView imageView = findViewById(R.id.imageView);
+                        imageView.setImageBitmap(null);
+                        RequestTask rq = new RequestTask();
+                        rq.execute();
+                        streak += 1;
+                        streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+                        reponse.setText("");
+                        EditText edt = findViewById(R.id.editFlag);
+                        edt.setText(null);
                     }
                 });
                 popup.getNoButton().setOnClickListener(new View.OnClickListener() {
@@ -73,13 +84,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             } else {
-                bravo.setText("Mauvaise réponse");
+                Toast.makeText(getApplicationContext(), "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
             }
         }
         if(v.getId() == R.id.again) {
+            reponse.setText("");
+            ImageView imageView = findViewById(R.id.imageView);
+            imageView.setImageBitmap(null);
+            streak = 0;
+            streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+
             RequestTask rq = new RequestTask();
             rq.execute();
         }
+
+        if (v.getId() == R.id.show) {
+            reponse.setText(pays);
+        }
+
         if(v.getId() == R.id.tbQuizzButton){
             //Intent intent = new Intent(this,QuizzActivity.class)
             //startActivity(intent)

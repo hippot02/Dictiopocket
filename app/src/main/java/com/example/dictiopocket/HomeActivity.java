@@ -24,6 +24,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DecimalFormat;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -51,6 +52,11 @@ public class HomeActivity extends AppCompatActivity {
         if(v.getId() == R.id.tbDevinPaysButton){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }
+
+        if(v.getId() == R.id.nouveauPays) {
+            RequestTask rq = new RequestTask();
+            rq.execute();
         }
     }
     public int getRandomNumber(int min, int max) {
@@ -117,13 +123,26 @@ public class HomeActivity extends AppCompatActivity {
             try {
                 jsa = new JSONArray(result);
                 new DownloadImageTask((ImageView) findViewById(R.id.drapeauPays)).execute(decodeJSA(jsa));
+                DecimalFormat formatter = new DecimalFormat("#,###,###,###");
                 TextView nomPays = findViewById(R.id.nomPays);
                 TextView areaPays = findViewById(R.id.areaPays);
                 TextView populationPays = findViewById(R.id.populationPays);
                 TextView capitalPays = findViewById(R.id.capitalPays);
+                TextView areaP = findViewById(R.id.area);
+                TextView populationP = findViewById(R.id.population);
+                TextView capitalP = findViewById(R.id.capital);
+                if(name.length() > 16) {
+                    nomPays.setTextSize(30);
+                }
+                else {
+                    nomPays.setTextSize(50);
+                }
                 nomPays.setText(name);
-                areaPays.setText(area + " km²");
-                populationPays.setText(population);
+                areaP.setText("Surface du pays :");
+                areaPays.setText(formatter.format(Integer.parseInt(area)) + " km²");
+                populationP.setText("Population :");
+                populationPays.setText(formatter.format(Integer.parseInt(population)));
+                capitalP.setText("Capitale du pays :");
                 capitalPays.setText(capital);
             } catch (Exception e) {
 
