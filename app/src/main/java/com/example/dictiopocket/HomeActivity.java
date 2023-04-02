@@ -7,6 +7,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,13 +29,15 @@ import java.text.DecimalFormat;
 
 public class HomeActivity extends AppCompatActivity {
 
-    private String name, area, population, capital;
+    private String name, area, population, capital, mapUrl;
+    private WebView webView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
         gestionToolbar(); // Permet de gérer la toolbar
+        webView = findViewById(R.id.mapView);
 
         RequestTask rq = new RequestTask();
         rq.execute();
@@ -52,6 +55,10 @@ public class HomeActivity extends AppCompatActivity {
         if(v.getId() == R.id.tbDevinPaysButton){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
+        }
+
+        if(v.getId() == R.id.mapBtn) {
+            webView.loadUrl(mapUrl);
         }
 
         if(v.getId() == R.id.nouveauPays) {
@@ -115,6 +122,8 @@ public class HomeActivity extends AppCompatActivity {
             //capital = jsoPays.getString("capital");
             JSONObject jsoFlag = jsoPays.getJSONObject("flags");
             String flagURL = jsoFlag.getString("png");
+            JSONObject jsoMap = jsoPays.getJSONObject("maps");
+            mapUrl = jsoMap.getString("googleMaps");
             response = flagURL;
             return response;
         }

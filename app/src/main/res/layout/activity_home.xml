@@ -72,13 +72,28 @@
             android:textSize="30dp"/>
 
         <Button
-            android:id="@+id/nouveauPays"
+            android:id="@+id/mapBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/capitalPays"
             android:layout_centerHorizontal="true"
+            android:text="Afficher sur map"
+            android:onClick="onClick"/>
+
+        <Button
+            android:id="@+id/nouveauPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mapBtn"
+            android:layout_centerHorizontal="true"
             android:text="Nouveau pays"
             android:onClick="onClick"/>
+
+        <WebView
+            android:id="@+id/mapView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nouveauPays"/>
 
     </RelativeLayout>
 
