@@ -7,4 +7,9 @@
     <string name="menutxt2">FlagGuesser</string>
     <string name="yesButton">OUI</string>
     <string name="noButton">NON</string>
+    <string name="question">Question</string>
+    <string name="reponse1Quizz">reponse 1</string>
+    <string name="reponse2Quizz">reponse 2</string>
+    <string name="reponse3Quizz">reponse 3</string>
+    <string name="reponse4Quizz">reponse 4</string>
 </resources>

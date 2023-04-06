@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 
+
 public class HomeActivity extends AppCompatActivity {
 
     private String name, area, population, capital, mapUrl;
@@ -45,17 +46,8 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+
     public void onClick(View v) {
-
-        if(v.getId() == R.id.tbQuizzButton){
-            //Intent intent = new Intent(this,QuizzActivity.class)
-            //startActivity(intent)
-        }
-
-        if(v.getId() == R.id.tbDevinPaysButton){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-        }
 
         if(v.getId() == R.id.mapBtn) {
             webView.loadUrl(mapUrl);
@@ -66,6 +58,8 @@ public class HomeActivity extends AppCompatActivity {
             rq.execute();
         }
     }
+
+
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -159,8 +153,10 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
+
     public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
+
 
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
@@ -190,6 +186,15 @@ public class HomeActivity extends AppCompatActivity {
         Button tbQuizzButton = findViewById(R.id.tbQuizzButton);
         home_icon.setOnClickListener(view -> {
             Intent i= new Intent(this, HomeActivity.class);
+            startActivity(i);
+        });
+        tbDevinPaysButton.setOnClickListener(view -> {
+            Intent i = new Intent(this,MainActivity.class);
+            startActivity(i);
+        });
+
+        tbQuizzButton.setOnClickListener(view -> {
+            Intent i = new Intent(this, QuizzActivity.class);
             startActivity(i);
         });
 

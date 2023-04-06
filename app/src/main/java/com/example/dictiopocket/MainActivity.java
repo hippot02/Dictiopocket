@@ -114,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
     public void reload() {
         Intent intent = getIntent();
         overridePendingTransition(0, 0);
@@ -221,6 +222,15 @@ public class MainActivity extends AppCompatActivity {
         Button tbQuizzButton = findViewById(R.id.tbQuizzButton);
         home_icon.setOnClickListener(view -> {
             Intent i = new Intent(this, HomeActivity.class);
+            startActivity(i);
+        });
+        tbDevinPaysButton.setOnClickListener(view -> {
+            Intent i = new Intent(this,MainActivity.class);
+            startActivity(i);
+        });
+
+        tbQuizzButton.setOnClickListener(view -> {
+            Intent i = new Intent(this, QuizzActivity.class);
             startActivity(i);
         });
     }
