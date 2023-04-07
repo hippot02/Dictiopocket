@@ -100,7 +100,7 @@ public class QuizzActivity extends AppCompatActivity {
         db.insertQuestion("Quel est le pays avec le moins d'habitants ?","Suède","Norvège","2");
         db.insertQuestion("Avec quel pays la France partage sa plus grosse frontière ?","Brésil","Allemagne","1");
         db.insertQuestion("Quel est la capitale de Brunei ?","Bandar Seri Begawan","Khartoum","1");
-        db.insertQuestion("Quel pays possède le plus grand nombr de pyramides ?", "Egypte", "Soudan","2");
+        db.insertQuestion("Quel pays possède le plus grand nombre de pyramides ?", "Egypte", "Soudan","2");
         db.insertQuestion("Ou se situe la Porte de l'Enfer ?", "Nouvelle Guinnée" , "Turkménistan", "2" );
         db.insertQuestion("Quel est le pays le plus plat du monde ?", "Bolivie", "Maroc", "1");
         db.insertQuestion("Quel est le plus vieil État du monde ?", "Sain-Marin", "Malte", "1");
