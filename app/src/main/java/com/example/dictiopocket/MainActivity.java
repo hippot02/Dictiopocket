@@ -100,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
 
         if (v.getId() == R.id.show) {
             reponse.setText(pays);
+            streak = 0;
+            streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
         }
 
         if(v.getId() == R.id.tbQuizzButton){
