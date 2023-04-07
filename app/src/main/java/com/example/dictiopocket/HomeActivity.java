@@ -1,9 +1,14 @@
 package com.example.dictiopocket;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkCapabilities;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,18 +37,23 @@ public class HomeActivity extends AppCompatActivity {
 
     private String name, area, population, capital, mapUrl;
     private WebView webView;
+    private Boolean co;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
         gestionToolbar(); // Permet de gérer la toolbar
-        webView = findViewById(R.id.mapView);
+        co = false;
+        isOnline();
+        if(co == false) {
+            setContentView(R.layout.activity_connection);
+        } else {
+            webView = findViewById(R.id.mapView);
 
-        RequestTask rq = new RequestTask();
-        rq.execute();
-
-
+            RequestTask rq = new RequestTask();
+            rq.execute();
+        }
     }
 
 
@@ -62,6 +72,22 @@ public class HomeActivity extends AppCompatActivity {
 
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
+    }
+
+    private void isOnline() {
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        cm.registerDefaultNetworkCallback(new ConnectivityManager.NetworkCallback() {
+            @Override
+            public void onAvailable(Network network) {
+                super.onAvailable(network);
+                co = true;
+            }
+            @Override
+            public void onLost(Network network) {
+                super.onLost(network);
+                co = false;
+            }
+        });
     }
 
     private class RequestTask extends AsyncTask<Void, Void, String> {
