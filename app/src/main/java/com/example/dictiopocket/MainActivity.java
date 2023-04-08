@@ -29,6 +29,13 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+/*
+Cette classe est l'activité du jeu devine drapeau.
+Cette clase contient plusieurs methodes pour gerer les interactions
+de l'utilisateur (boutons), de requêter une API de pays,
+de télécharger des images,de vérifier la connectivité réseau,
+et de gérer l'affichage des données sur l'écran
+ */
 public class MainActivity extends AppCompatActivity {
     private String pays;
     private int streak;
@@ -36,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
     private MainActivity activity;
     private NetworkConnection networkConnection;
 
+
+    /*
+   Cette méthode est appelée lors de la création de l'activité et
+   permet de définir le contenu de l'écran en associant le fichier
+   activity_main.xml à l'activité. Et appelle d'autres methodes
+   pour verifier la connexion Internet ou d'afficher ou d'afficher
+   le contenu d'un pays
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +75,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    /*
+    Cette méthode est appelée lorsqu'un utilisateur clique sur un
+    élément de l'interface utilisateur (bouton)
+     */
     public void onClick(View v) {
         TextView reponse = findViewById(R.id.reponse);
         if (v.getId() == R.id.confirm) {
@@ -114,11 +133,6 @@ public class MainActivity extends AppCompatActivity {
             streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
         }
 
-        if (v.getId() == R.id.tbQuizzButton) {
-            //Intent intent = new Intent(this,QuizzActivity.class)
-            //startActivity(intent)
-        }
-
         if (v.getId() == R.id.tbDevinPaysButton) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
@@ -126,28 +140,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
-    public void reload() {
-        Intent intent = getIntent();
-        overridePendingTransition(0, 0);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        finish();
-        overridePendingTransition(0, 0);
-        startActivity(intent);
-    }
-
-
+    /*
+    Cette méthode génère un nombre aléatoire compris entre min et max.
+    Elle permet par la suite de choisir un pays aléatoire parmis les 250
+    possible lors de la requête
+     */
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
+    /*
+    Cette classe interne hérite de la classe AsyncTask  permet de réaliser une requête HTTP
+    sur une API(restcountries) et de décoder les données JSON renvoyées par
+    l'API et de les afficher sur l'ecran
+     */
     private class RequestTask extends AsyncTask<Void, Void, String> {
-
+        /*
+        Cette méthode execute la méthode requete et retourne le resultat obtenu
+         */
         protected String doInBackground(Void... voids) {
             String response = requete();
             return response;
         }
 
+        /*
+        Cette méthode effectue une requete HTTP sur L'API (restcountries)
+        et retourne le rasultat JSON en une chaîne de caractères
+         */
         private String requete() {
             String response = "";
             try {
@@ -177,6 +196,9 @@ public class MainActivity extends AppCompatActivity {
             return response;
         }
 
+        /*
+        Cette méthode decode un JSONARRAY reçu en parametre
+        */
         private String decodeJSA(JSONArray jso) throws Exception {
             String response = "";
             int m = getRandomNumber(0, 249);
@@ -193,6 +215,11 @@ public class MainActivity extends AppCompatActivity {
             return response;
         }
 
+        /*
+        Cette méthode est appelée après l'exécution de la méthode doInBackground(),
+        elle appelle la methode decodeJSA() pour decoder la reponse de l'API
+        et permet d'afficher les données du pays sur l'écran
+         */
         protected void onPostExecute(String result) {
             JSONArray jsa;
             try {
@@ -204,6 +231,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    Cette classe interne hérite de la classe AsyncTask
+    et permet de télécharger une image à partir d'une URL donnée
+     */
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
 
@@ -211,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
             this.bmImage = bmImage;
         }
 
+        /*
+        Cette méthode permet de télécharge l'image (drapeau du pays) en appelant
+        la méthode downloadImage()
+         */
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
             Bitmap bitmap = null;
@@ -224,11 +259,18 @@ public class MainActivity extends AppCompatActivity {
             return bitmap;
         }
 
+        /*
+        Cette méthode est appelée après l'exécution de la méthode doInBackground()
+        et permet d'afficher l'image téléchargée sur l'écran.
+         */
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
     }
 
+    /*
+    Cette méthode permet de gérer la barre d'action de l'application
+     */
     private void gestionToolbar() {
         ImageView home_icon = findViewById(R.id.home_icon);
         Button tbDevinPaysButton = findViewById(R.id.tbDevinPaysButton);

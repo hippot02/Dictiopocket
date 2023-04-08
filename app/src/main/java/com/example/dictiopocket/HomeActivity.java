@@ -1,13 +1,8 @@
 package com.example.dictiopocket;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.ConnectivityManager;
-import android.net.Network;
-import android.net.NetworkCapabilities;
-import android.net.NetworkRequest;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +11,6 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,13 +27,26 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DecimalFormat;
 
-
+/*
+Cette classe est l'activité qui se charge en premier avec des informations sur un pays.
+Cette clase contient plusieurs methodes pour gerer les interactions
+de l'utilisateur (boutons), de requêter une API de pays,
+de télécharger des images,de vérifier la connectivité réseau,
+et de gérer l'affichage des données sur l'écran
+ */
 public class HomeActivity extends AppCompatActivity {
 
     private String name, area, population, capital, mapUrl;
     private WebView webView;
     private NetworkConnection networkConnection;
 
+    /*
+    Cette méthode est appelée lors de la création de l'activité et
+    permet de définir le contenu de l'écran en associant le fichier
+    activity_home.xml à l'activité. Et appelle d'autres methodes
+    pour verifier la connexion Internet ou d'afficher ou d'afficher
+    le contenu d'un pays
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -49,7 +56,7 @@ public class HomeActivity extends AppCompatActivity {
         networkConnection = new NetworkConnection(this);
         networkConnection.register();
 
-        if(networkConnection.isConnectedToWifi() == true) {
+        if (networkConnection.isConnectedToWifi() == true) {
             webView = findViewById(R.id.mapView);
 
             RequestTask rq = new RequestTask();
@@ -61,6 +68,10 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
+    /*
+    Cette méthode est appelée lorsqu'un utilisateur clique sur un
+    élément de l'interface utilisateur (bouton)
+     */
     public void onClick(View v) {
 
         if (v.getId() == R.id.mapBtn) {
@@ -73,19 +84,35 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
+    /*
+    Cette méthode génère un nombre aléatoire compris entre min et max.
+    Elle permet par la suite de choisir un pays aléatoire parmis les 250
+    possible lors de la requête
+     */
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
 
+    /*
+    Cette classe interne hérite de la classe AsyncTask  permet de réaliser une requête HTTP
+    sur une API(restcountries) et de décoder les données JSON renvoyées par
+    l'API et de les afficher sur l'ecran
+     */
     private class RequestTask extends AsyncTask<Void, Void, String> {
 
+        /*
+        Cette méthode execute la méthode requete et retourne le resultat obtenu
+         */
         protected String doInBackground(Void... voids) {
             String response = requete();
             return response;
         }
 
+        /*
+        Cette méthode effectue une requete HTTP sur L'API (restcountries)
+        et retourne le rasultat JSON en une chaîne de caractères
+         */
         private String requete() {
             String response = "";
             try {
@@ -115,6 +142,9 @@ public class HomeActivity extends AppCompatActivity {
             return response;
         }
 
+        /*
+        Cette méthode decode un JSONARRAY reçu en parametre
+         */
         private String decodeJSA(JSONArray jso) throws Exception {
             String response = "";
             int m = getRandomNumber(0, 249);
@@ -137,6 +167,11 @@ public class HomeActivity extends AppCompatActivity {
             return response;
         }
 
+        /*
+        Cette méthode est appelée après l'exécution de la méthode doInBackground(),
+        elle appelle la methode decodeJSA() pour decoder la reponse de l'API
+        et permet d'afficher les données du pays sur l'écran
+         */
         protected void onPostExecute(String result) {
             JSONArray jsa;
             try {
@@ -168,15 +203,21 @@ public class HomeActivity extends AppCompatActivity {
         }
     }
 
-
+    /*
+    Cette classe interne hérite de la classe AsyncTask
+    et permet de télécharger une image à partir d'une URL donnée
+     */
     public class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
         ImageView bmImage;
-
 
         public DownloadImageTask(ImageView bmImage) {
             this.bmImage = bmImage;
         }
 
+        /*
+        Cette méthode permet de télécharge l'image (drapeau du pays) en appelant
+        la méthode downloadImage()
+         */
         protected Bitmap doInBackground(String... urls) {
             String urldisplay = urls[0];
             Bitmap bitmap = null;
@@ -190,12 +231,19 @@ public class HomeActivity extends AppCompatActivity {
             return bitmap;
         }
 
+        /*
+        Cette méthode est appelée après l'exécution de la méthode doInBackground()
+        et permet d'afficher l'image téléchargée sur l'écran.
+         */
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
 
         }
     }
 
+    /*
+    Cette méthode permet de gérer la barre d'action de l'application
+     */
     private void gestionToolbar() {
         ImageView home_icon = findViewById(R.id.home_icon);
         Button tbDevinPaysButton = findViewById(R.id.tbDevinPaysButton);
