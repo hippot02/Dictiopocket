@@ -56,14 +56,14 @@ public class NetworkConnection extends ConnectivityManager.NetworkCallback {
 
     private void checkWifiConnection() {
         if (isConnectedToWifi()) {
-            Toast.makeText(context, "Connected to Wi-Fi", Toast.LENGTH_SHORT).show();
             if(wifi == false) {
+                Toast.makeText(context, "Connecté au WIFI", Toast.LENGTH_SHORT).show();
                 Intent i = new Intent(context, HomeActivity.class);
                 context.startActivity(i);
             }
         } else {
             wifi = false;
-            Toast.makeText(context, "Not connected to Wi-Fi", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Problème de connexion", Toast.LENGTH_SHORT).show();
             Intent i = new Intent(context, WifiActivity.class);
             context.startActivity(i);
         }
