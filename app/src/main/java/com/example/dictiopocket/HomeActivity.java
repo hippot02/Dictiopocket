@@ -7,8 +7,8 @@ import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
+import android.net.NetworkRequest;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,33 +38,36 @@ public class HomeActivity extends AppCompatActivity {
 
     private String name, area, population, capital, mapUrl;
     private WebView webView;
-    private Boolean co;
+    private NetworkConnection networkConnection;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getSupportActionBar().hide();
         gestionToolbar(); // Permet de gérer la toolbar
-        co = false;
-        isOnline();
-        if(co == false) {
-            setContentView(R.layout.activity_connection);
-        } else {
+
+        networkConnection = new NetworkConnection(this);
+        networkConnection.register();
+
+        if(networkConnection.isConnectedToWifi() == true) {
             webView = findViewById(R.id.mapView);
 
             RequestTask rq = new RequestTask();
             rq.execute();
+        } else {
+            Intent i = new Intent(this, WifiActivity.class);
+            startActivity(i);
         }
-    }
 
+    }
 
     public void onClick(View v) {
 
-        if(v.getId() == R.id.mapBtn) {
+        if (v.getId() == R.id.mapBtn) {
             webView.loadUrl(mapUrl);
         }
 
-        if(v.getId() == R.id.nouveauPays) {
+        if (v.getId() == R.id.nouveauPays) {
             RequestTask rq = new RequestTask();
             rq.execute();
         }
@@ -74,21 +78,6 @@ public class HomeActivity extends AppCompatActivity {
         return (int) ((Math.random() * (max - min)) + min);
     }
 
-    private void isOnline() {
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        cm.registerDefaultNetworkCallback(new ConnectivityManager.NetworkCallback() {
-            @Override
-            public void onAvailable(Network network) {
-                super.onAvailable(network);
-                co = true;
-            }
-            @Override
-            public void onLost(Network network) {
-                super.onLost(network);
-                co = false;
-            }
-        });
-    }
 
     private class RequestTask extends AsyncTask<Void, Void, String> {
 
@@ -147,7 +136,8 @@ public class HomeActivity extends AppCompatActivity {
             response = flagURL;
             return response;
         }
-        protected void onPostExecute(String result){
+
+        protected void onPostExecute(String result) {
             JSONArray jsa;
             try {
                 jsa = new JSONArray(result);
@@ -160,10 +150,9 @@ public class HomeActivity extends AppCompatActivity {
                 TextView areaP = findViewById(R.id.area);
                 TextView populationP = findViewById(R.id.population);
                 TextView capitalP = findViewById(R.id.capital);
-                if(name.length() > 16) {
+                if (name.length() > 16) {
                     nomPays.setTextSize(30);
-                }
-                else {
+                } else {
                     nomPays.setTextSize(50);
                 }
                 nomPays.setText(name);
@@ -206,16 +195,17 @@ public class HomeActivity extends AppCompatActivity {
 
         }
     }
-    private void gestionToolbar(){
+
+    private void gestionToolbar() {
         ImageView home_icon = findViewById(R.id.home_icon);
         Button tbDevinPaysButton = findViewById(R.id.tbDevinPaysButton);
         Button tbQuizzButton = findViewById(R.id.tbQuizzButton);
         home_icon.setOnClickListener(view -> {
-            Intent i= new Intent(this, HomeActivity.class);
+            Intent i = new Intent(this, HomeActivity.class);
             startActivity(i);
         });
         tbDevinPaysButton.setOnClickListener(view -> {
-            Intent i = new Intent(this,MainActivity.class);
+            Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
 
