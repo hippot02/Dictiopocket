@@ -12,7 +12,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     private int streak;
     private TextView streakT;
     private MainActivity activity;
+    private NetworkConnection networkConnection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +45,24 @@ public class MainActivity extends AppCompatActivity {
 
         gestionToolbar(); // Permet de gérer les images view dans une autre classe
 
-        streakT = findViewById(R.id.streak);
-        streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
-        RequestTask rq = new RequestTask();
-        rq.execute();
+        networkConnection = new NetworkConnection(this);
+        networkConnection.register();
+
+        if (networkConnection.isConnectedToWifi() == true) {
+            streakT = findViewById(R.id.streak);
+            streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
+            RequestTask rq = new RequestTask();
+            rq.execute();
+        } else {
+            Intent i = new Intent(this, WifiActivity.class);
+            startActivity(i);
+        }
     }
-
-
 
 
     public void onClick(View v) {
         TextView reponse = findViewById(R.id.reponse);
-        if(v.getId() == R.id.confirm) {
+        if (v.getId() == R.id.confirm) {
             EditText edt = (EditText) findViewById(R.id.editFlag);
             String nomPays = edt.getText().toString();
             Intent i = new Intent(this, HomeActivity.class);
@@ -70,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                         RequestTask rq = new RequestTask();
                         rq.execute();
                         streak += 1;
-                        streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+                        streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
                         reponse.setText("");
                         EditText edt = findViewById(R.id.editFlag);
                         edt.setText(null);
@@ -87,12 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
             }
         }
-        if(v.getId() == R.id.again) {
+        if (v.getId() == R.id.again) {
             reponse.setText("");
             ImageView imageView = findViewById(R.id.imageView);
             imageView.setImageBitmap(null);
             streak = 0;
-            streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+            streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
 
             RequestTask rq = new RequestTask();
             rq.execute();
@@ -101,15 +111,15 @@ public class MainActivity extends AppCompatActivity {
         if (v.getId() == R.id.show) {
             reponse.setText(pays);
             streak = 0;
-            streakT.setText("Vous êtes en series de "+streak+" bonnes réponses");
+            streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
         }
 
-        if(v.getId() == R.id.tbQuizzButton){
+        if (v.getId() == R.id.tbQuizzButton) {
             //Intent intent = new Intent(this,QuizzActivity.class)
             //startActivity(intent)
         }
 
-        if(v.getId() == R.id.tbDevinPaysButton){
+        if (v.getId() == R.id.tbDevinPaysButton) {
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
@@ -182,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
             response = flagURL;
             return response;
         }
-        protected void onPostExecute(String result){
+
+        protected void onPostExecute(String result) {
             JSONArray jsa;
             try {
                 jsa = new JSONArray(result);
@@ -227,7 +238,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
         tbDevinPaysButton.setOnClickListener(view -> {
-            Intent i = new Intent(this,MainActivity.class);
+            Intent i = new Intent(this, MainActivity.class);
             startActivity(i);
         });
 
@@ -236,9 +247,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         });
     }
-
-
-
 
 
 }
