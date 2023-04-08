@@ -60,6 +60,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
 
+
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
@@ -187,10 +188,12 @@ public class HomeActivity extends AppCompatActivity {
         home_icon.setOnClickListener(view -> {
             Intent i= new Intent(this, HomeActivity.class);
             startActivity(i);
+
         });
         tbDevinPaysButton.setOnClickListener(view -> {
             Intent i = new Intent(this,MainActivity.class);
             startActivity(i);
+
         });
 
         tbQuizzButton.setOnClickListener(view -> {

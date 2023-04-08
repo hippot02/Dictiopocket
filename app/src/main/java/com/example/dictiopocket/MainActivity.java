@@ -81,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         popup.dismiss();
                         startActivity(i);
+
                     }
                 });
             } else {
@@ -100,16 +101,6 @@ public class MainActivity extends AppCompatActivity {
 
         if (v.getId() == R.id.show) {
             reponse.setText(pays);
-        }
-
-        if(v.getId() == R.id.tbQuizzButton){
-            //Intent intent = new Intent(this,QuizzActivity.class)
-            //startActivity(intent)
-        }
-
-        if(v.getId() == R.id.tbDevinPaysButton){
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
         }
 
     }
@@ -223,15 +214,18 @@ public class MainActivity extends AppCompatActivity {
         home_icon.setOnClickListener(view -> {
             Intent i = new Intent(this, HomeActivity.class);
             startActivity(i);
+
         });
         tbDevinPaysButton.setOnClickListener(view -> {
             Intent i = new Intent(this,MainActivity.class);
             startActivity(i);
+
         });
 
         tbQuizzButton.setOnClickListener(view -> {
             Intent i = new Intent(this, QuizzActivity.class);
             startActivity(i);
+
         });
     }
 
