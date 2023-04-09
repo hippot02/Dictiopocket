@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/*
+Cette classe sert pour la gestion de la base de données
+ */
 public class DBHandler extends SQLiteOpenHelper {
     public static final int DATABASE_VERSION = 1;
     public static final String DATABASE_NAME = "Form.db";
@@ -15,17 +18,24 @@ public class DBHandler extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
+    /*
+    Cette méthode permet de supprimer la table de la base de données
+     */
     public void deleteDatabase() {
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS " + DBContract.Form.TABLE_NAME);
         onCreate(db);
     }
 
+    /*
+    Cette méthode est appelée lors de la création de la base de données.
+    Elle crée la table dans la base de données
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
 
 
-        String query =  "CREATE TABLE " + DBContract.Form.TABLE_NAME + " (" +
+        String query = "CREATE TABLE " + DBContract.Form.TABLE_NAME + " (" +
                 DBContract.Form.ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 DBContract.Form.COLUMN_QUESTION + " TEXT," +
                 DBContract.Form.COLUMN_REP1 + " TEXT," +
@@ -34,6 +44,9 @@ public class DBHandler extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
+    /*
+    Cette méthode est appelée pour mettre à jour base de données
+    */
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
         String query = "DROP TABLE IF EXISTS " + DBContract.Form.TABLE_NAME;
@@ -41,15 +54,19 @@ public class DBHandler extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void insertQuestion(String question,String rep1, String rep2, String rep) {
+    /*
+    Cette méthode permet d'insérer une nouvelle question dans la base
+    de données
+     */
+    public void insertQuestion(String question, String rep1, String rep2, String rep) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues row = new ContentValues();
 
         try {
-            row.put(DBContract.Form.COLUMN_QUESTION,question);
-            row.put(DBContract.Form.COLUMN_REP1,rep1);
-            row.put(DBContract.Form.COLUMN_REP2,rep2);
-            row.put(DBContract.Form.COLUMN_REP,rep);
+            row.put(DBContract.Form.COLUMN_QUESTION, question);
+            row.put(DBContract.Form.COLUMN_REP1, rep1);
+            row.put(DBContract.Form.COLUMN_REP2, rep2);
+            row.put(DBContract.Form.COLUMN_REP, rep);
             db.insert(DBContract.Form.TABLE_NAME, null, row);
         } catch (android.database.sqlite.SQLiteConstraintException e) {
             Log.e("ERROR", "Déja Insert");
@@ -58,14 +75,14 @@ public class DBHandler extends SQLiteOpenHelper {
         }
     }
 
-
-
-
-
+    /*
+    Cette méthode sélectionne un ID de question au hasard dans la base de données.
+    Elle renvoie l'ID de la question sélectionnée
+     */
     public int selectRandomQuestionId() {
         SQLiteDatabase db = this.getReadableDatabase();
         int questionId = -1;
-        String[] projection = { DBContract.Form.ID };
+        String[] projection = {DBContract.Form.ID};
         String orderBy = "RANDOM()";
         String limit = "1";
         Cursor cursor = db.query(
@@ -84,7 +101,11 @@ public class DBHandler extends SQLiteOpenHelper {
         cursor.close();
         return questionId;
     }
-    public String getQuestionById(int id){
+
+    /*
+    Cette méthode permet d'obtenir la question associée à l'ID de la question donné.
+     */
+    public String getQuestionById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
         String[] projection = {
@@ -92,7 +113,7 @@ public class DBHandler extends SQLiteOpenHelper {
         };
 
         String selection = DBContract.Form.ID + " = ?";
-        String[] selectionArgs = { String.valueOf(id) };
+        String[] selectionArgs = {String.valueOf(id)};
 
         Cursor cursor = db.query(
                 DBContract.Form.TABLE_NAME,
@@ -114,6 +135,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return question;
     }
+
+    /*
+    Cette méthode permet d'obtenir la première réponse associée à l'ID de la question donné
+     */
     public String getRep1ById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -144,6 +169,10 @@ public class DBHandler extends SQLiteOpenHelper {
 
         return rep;
     }
+
+    /*
+    Cette méthode permet d'obtenir la deuxième réponse associée à l'ID de la question donné
+     */
     public String getRep2ById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -175,6 +204,9 @@ public class DBHandler extends SQLiteOpenHelper {
         return rep;
     }
 
+    /*
+    Cette méthode permet d'obtenir la bonne reponse associée à l'ID de la question donné
+     */
     public String getRepById(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 

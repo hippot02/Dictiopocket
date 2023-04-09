@@ -16,6 +16,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
 
+/*
+Cette classe est l'activité du quizz.
+Cette clase contient plusieurs methodes pour gerer les interactions
+de l'utilisateur (boutons), de remplir la base de donées,
+et d'afficher une question au hasard
+ */
 public class QuizzActivity extends AppCompatActivity {
 
     TextView tvQuestion;
@@ -25,7 +31,11 @@ public class QuizzActivity extends AppCompatActivity {
     DBHandler db;
     private QuizzActivity activity;
 
-
+    /*
+    Cette méthode est appelée lorsque l'activité est créée.
+    Elle initialise les éléments graphiques et la base de
+    données utilisée pour stocker les questions et les réponses
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
@@ -41,6 +51,10 @@ public class QuizzActivity extends AppCompatActivity {
         randomiserQuestion();
     }
 
+    /*
+    Cette méthode est appelée lorsque l'utilisateur a choisi une réponse
+    en apuyant sur un bouton. Elle vérifie si la réponse est correcte
+     */
     public void check(View v) {
         String rep = db.getRepById(idquestion);
         int temp;
@@ -52,7 +66,7 @@ public class QuizzActivity extends AppCompatActivity {
 
         if (temp == Integer.valueOf(rep)) {
             CustomPopup popup = new CustomPopup(activity);
-            popup.setTitle("C'est une bonne réponse !");
+            popup.setTitle("C'est la bonne réponse !");
             popup.setSubtitle("Vous avez trouvé la bonne réponse. Voulez vous rejouer ?");
             popup.build();
             popup.getYesButton().setOnClickListener(view -> {
@@ -75,7 +89,10 @@ public class QuizzActivity extends AppCompatActivity {
 
     }
 
-
+    /*
+    Cette méthode est appelée pour choisir une question aléatoire dans
+    la base de données et afficher ses réponses possibles
+     */
     public void randomiserQuestion() {
         idquestion = db.selectRandomQuestionId();
         //System.out.println("-----------------------------"+idquestion);
@@ -87,7 +104,9 @@ public class QuizzActivity extends AppCompatActivity {
         btnRep2.setText(reponse2);
     }
 
-
+    /*
+    Cette méthode permet de gérer la barre d'action de l'application
+    */
     private void gestionToolbar() {
         ImageView home_icon = findViewById(R.id.home_icon);
         Button tbDevinPaysButton = findViewById(R.id.tbDevinPaysButton);
@@ -110,7 +129,9 @@ public class QuizzActivity extends AppCompatActivity {
         });
 
     }
-
+    /*
+    Cette méthode remplit la base de données avec des questions et des réponses
+     */
     public void fillDB() {
         db.insertQuestion("Quel pays est le plus grand du monde ?", "Russie", "Canada", "1");
         db.insertQuestion("Quel est le pays avec le moins d'habitants ?", "Suède", "Norvège", "2");
@@ -120,6 +141,12 @@ public class QuizzActivity extends AppCompatActivity {
         db.insertQuestion("Ou se situe la Porte de l'Enfer ?", "Nouvelle Guinnée", "Turkménistan", "2");
         db.insertQuestion("Quel est le pays le plus plat du monde ?", "Bolivie", "Maroc", "1");
         db.insertQuestion("Quel est le plus vieil État du monde ?", "Saint-Marin", "Malte", "1");
+        db.insertQuestion("Où se trouve le mur des lamentations ?", "Beyrouth", "Jérusalem", "2");
+        db.insertQuestion("Quelle est l'altitude en mètre du mont Everest ?", "8848", "10 848", "1");
+        db.insertQuestion("Quel est le plus grand océan du monde ?", "L'Atlantique", "Le Pacifique", "2");
+        db.insertQuestion("De combien d'états sont composés Les États-Unis ?", "51", "50", "2");
+        db.insertQuestion("De quel pays Kuala Lumpur est-elle la capitale ?", "La Malaisie", "Le Cambodge", "1");
+
 
         randomiserQuestion();
 
