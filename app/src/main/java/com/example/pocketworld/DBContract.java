@@ -1,4 +1,4 @@
-package com.example.dictiopocket;
+package com.example.pocketworld;
 
 /*
 Cette classe défini la structure de la base de données pour le quizz.

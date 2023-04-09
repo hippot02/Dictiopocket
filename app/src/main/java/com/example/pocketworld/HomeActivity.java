@@ -1,4 +1,4 @@
-package com.example.dictiopocket;
+package com.example.pocketworld;
 
 import android.content.Intent;
 import android.graphics.Bitmap;

@@ -1,16 +1,13 @@
-package com.example.dictiopocket;
+package com.example.pocketworld;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.net.NetworkCapabilities;
-import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-
-import java.util.logging.Handler;
 
 /*
 Cette classe vérifie l'état de la connexion réseau.

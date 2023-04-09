@@ -1,12 +1,9 @@
-package com.example.dictiopocket;
+package com.example.pocketworld;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.content.Context;
 import android.widget.Button;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 
 /*
 Cette classe permet de créer un popup et de modifier le text a afficher
