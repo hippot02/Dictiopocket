@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dictiopocket.R;
+
 /*
 Cette classe est l'activité ou l'utilisateur est redirigé
 automatiquement apres une perte de connexion ou au lancement de

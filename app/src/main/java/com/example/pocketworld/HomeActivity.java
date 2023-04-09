@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dictiopocket.R;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 

@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.dictiopocket.R;
+
 /*
 Cette classe permet de créer un popup et de modifier le text a afficher
  */

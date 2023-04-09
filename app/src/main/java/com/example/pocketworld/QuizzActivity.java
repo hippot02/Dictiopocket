@@ -10,6 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.dictiopocket.R;
+
 /*
 Cette classe est l'activité du quizz.
 Cette clase contient plusieurs methodes pour gerer les interactions

@@ -16,7 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.pocketworld.R;
+import com.example.dictiopocket.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
