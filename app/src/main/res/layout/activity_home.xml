@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/background">
     <include layout="@layout/toolbar"/>
 
     <RelativeLayout
@@ -13,9 +14,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:textSize="50dp"
             android:paddingTop="70dp"
-            android:text="Nom pays"/>
+            android:fontFamily="@font/josefinsans"
+            android:textSize="50dp"/>
 
         <ImageView
             android:id="@+id/drapeauPays"
@@ -30,17 +31,17 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/drapeauPays"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="Surface du pays :"/>
+            android:fontFamily="@font/josefinsans"
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/areaPays"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/area"
+            android:fontFamily="@font/josefinsans"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="..........."/>
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/population"
@@ -48,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/areaPays"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="Population :"/>
+            android:fontFamily="@font/josefinsans"
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/populationPays"
@@ -57,8 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/population"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="..........."/>
+            android:fontFamily="@font/josefinsans"
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/capital"
@@ -66,8 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/populationPays"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="Capital du pays :"/>
+            android:fontFamily="@font/josefinsans"
+            android:textSize="30dp"/>
 
         <TextView
             android:id="@+id/capitalPays"
@@ -75,10 +76,32 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/capital"
             android:layout_centerHorizontal="true"
-            android:textSize="30dp"
-            android:text="..........."/>
+            android:fontFamily="@font/josefinsans"
+            android:textSize="30dp"/>
 
+        <Button
+            android:id="@+id/mapBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/capitalPays"
+            android:layout_centerHorizontal="true"
+            android:text="Afficher sur map"
+            android:onClick="onClick"/>
 
+        <Button
+            android:id="@+id/nouveauPays"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/mapBtn"
+            android:layout_centerHorizontal="true"
+            android:text="Nouveau pays"
+            android:onClick="onClick"/>
+
+        <WebView
+            android:id="@+id/mapView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/nouveauPays"/>
 
     </RelativeLayout>
 

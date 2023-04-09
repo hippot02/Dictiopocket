@@ -9,4 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="blueperso">#1aabff</color>
     <color name="dark_gray">#4d4f4a</color>
+    <color name="background">#A7C7E7</color>
+    <color name="wifi">#4b94dd</color>
 </resources>

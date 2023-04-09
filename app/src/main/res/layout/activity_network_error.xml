@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/baseline_wifi_off_24"
+        android:layout_above="@+id/wifi"
+        android:layout_centerHorizontal="true"
+        app:tint="@color/wifi" />
+
+    <TextView
+        android:id="@+id/wifi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="OOPS!"
+        android:textAllCaps="true"
+        android:textColor="@color/wifi"
+        android:textStyle="bold"
+        android:textSize="35dp"/>
+
+        <TextView
+            android:id="@+id/erreur"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/wifi"
+            android:text="Aucune connexion Internet"
+            android:textColor="@color/wifi"
+            android:textSize="24dp"/>
+
+        <TextView
+            android:id="@+id/msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/erreur"
+            android:text="Essayer de vous reconnecter au réseau WI-FI"
+            android:textColor="@color/wifi"
+            android:textSize="18dp"/>
+
+
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
