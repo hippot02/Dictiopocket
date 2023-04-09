@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (networkConnection.isConnectedToWifi() == true) {
             streakT = findViewById(R.id.streak);
-            streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
+            streakT.setText("Vous êtes en serie de " + streak + " bonnes réponses");
             RequestTask rq = new RequestTask();
             rq.execute();
         } else {
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
                         RequestTask rq = new RequestTask();
                         rq.execute();
                         streak += 1;
-                        streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
+                        streakT.setText("Vous êtes en serie de " + streak + " bonnes réponses");
                         reponse.setText("");
                         EditText edt = findViewById(R.id.editFlag);
                         edt.setText(null);
@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             } else {
+                streak = 0;
+                streakT.setText("Vous êtes en serie de " + streak + " bonnes réponses");
                 Toast.makeText(getApplicationContext(), "Mauvaise réponse !", Toast.LENGTH_SHORT).show();
             }
         }
@@ -121,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
             ImageView imageView = findViewById(R.id.imageView);
             imageView.setImageBitmap(null);
             streak = 0;
-            streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
+            streakT.setText("Vous êtes en serie de " + streak + " bonnes réponses");
 
             RequestTask rq = new RequestTask();
             rq.execute();
@@ -130,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         if (v.getId() == R.id.show) {
             reponse.setText(pays);
             streak = 0;
-            streakT.setText("Vous êtes en series de " + streak + " bonnes réponses");
+            streakT.setText("Vous êtes en serie de " + streak + " bonnes réponses");
         }
 
         if (v.getId() == R.id.tbDevinPaysButton) {
