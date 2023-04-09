@@ -1,11 +1,9 @@
-package com.example.pocketworld;
+package com.example.dictiopocket;
 
 import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.dictiopocket.R;
 
 /*
 Cette classe est l'activité ou l'utilisateur est redirigé

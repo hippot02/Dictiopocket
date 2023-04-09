@@ -1,4 +1,4 @@
-package com.example.pocketworld;
+package com.example.dictiopocket;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -13,8 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.dictiopocket.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

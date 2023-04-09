@@ -1,4 +1,4 @@
-package com.example.pocketworld;
+package com.example.dictiopocket;
 
 import android.content.ContentValues;
 import android.content.Context;

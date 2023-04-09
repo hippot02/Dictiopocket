@@ -1,4 +1,4 @@
-package com.example.pocketworld;
+package com.example.dictiopocket;
 
 import android.app.Activity;
 import android.app.Dialog;
